@@ -4,20 +4,29 @@ import Form from './components/Form'
 import TodoList from './components/TodoList';
 
 export default function App() {
+  // Function for getting todos from the LocalStorage
+  const getLocalTodos = () => {
+    let list = localStorage.getItem('todos');
+    if (list) {
+      return JSON.parse(localStorage.getItem('todos'))
+    } else {
+      return [];
+    }
+  };
 
+  // Use States
   const [inputText, setInputText] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(getLocalTodos());
   const [status, setStatus] = useState("all");
   const [filteredTodos, setFilteredTodos] = useState([]);
-  //Use Effect
-  useEffect(() => {
-    getLocalTodos();
-  }, []);
+
+  // Use Effect
   useEffect(() => {
     filterHandler();
     saveLocalTodos();
   }, [todos, status]);
-  //functions
+
+  // Functions
   const filterHandler = () => {
     switch (status) {
       case 'completed':
@@ -31,21 +40,11 @@ export default function App() {
         break;
     }
   };
-  //save to local
-  const saveLocalTodos = () => {
+  
+  const saveLocalTodos = () => {        // Save todos to LocalStorage
     localStorage.setItem("todos", JSON.stringify(todos));
   };
-  const getLocalTodos = () => {
-    if (localStorage.getItem("todos") === null) {
-      localStorage.setItem("todos", JSON.stringify([]));
-    }
-    else {
-      let todosLocal = JSON.parse(localStorage.getItem("todos"));
-      console.log(todosLocal);
-      setTodos(todosLocal);
-      console.log(todosLocal);
-    }
-  };
+
   return (
     <div className="App">
       <header>
