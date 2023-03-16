@@ -40,9 +40,13 @@ export default function App() {
         break;
     }
   };
-  
+
   const saveLocalTodos = () => {        // Save todos to LocalStorage
     localStorage.setItem("todos", JSON.stringify(todos));
+  };
+
+  const deleteAll = () => {
+    setTodos([]);
   };
 
   return (
@@ -62,6 +66,10 @@ export default function App() {
         setTodos={setTodos}
         filteredTodos={filteredTodos}
       />
+      <br />
+      <div className='btn-div'>
+        <button onClick={deleteAll} className="btn">Remove All</button>
+      </div>
     </div>
   );
 }

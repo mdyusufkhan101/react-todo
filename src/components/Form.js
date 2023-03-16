@@ -19,11 +19,6 @@ export default function Form({ setInputText, todos, setTodos, inputText, setStat
         setStatus(e.target.value);
     };
 
-    // Functions
-    const deleteAll = () => {
-        setTodos([]);
-    };
-
     return (
         <form>
             <input value={inputText} onChange={inputTextHandler} type="text" className="todo-input" />
@@ -37,7 +32,6 @@ export default function Form({ setInputText, todos, setTodos, inputText, setStat
                     <option value="uncompleted">Uncompleted</option>
                 </select>
             </div>
-            <button onClick={deleteAll} className="fas">Remove All</button>
         </form>
     )
 }
